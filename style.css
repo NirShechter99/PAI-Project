@@ -1,0 +1,216 @@
+/* Base & Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e293b;
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #0f172a;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #38bdf8;
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #38bdf8;
+}
+
+.level-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+}
+
+select {
+    padding: 0.4rem;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #0f172a;
+    font-family: inherit;
+}
+
+/* Layout Container */
+.game-wrapper {
+    display: flex;
+    flex: 1;
+    padding: 2rem;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 950px) {
+    .game-wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+}
+
+/* Sidebar Controls */
+.controls-panel {
+    flex: 1;
+    max-width: 400px;
+    background-color: #334155;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.instructions-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #fcd34d;
+}
+
+.attempts {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.control-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    background: #1e293b;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.control-group label {
+    font-family: monospace;
+    color: #38bdf8;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.btn {
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1rem;
+}
+
+.btn.primary { background-color: #38bdf8; color: #0f172a; }
+.btn.primary:hover { background-color: #0ea5e9; }
+
+.btn.secondary { background-color: #64748b; color: #fff; }
+.btn.secondary:hover { background-color: #475569; }
+
+.btn.success { background-color: #22c55e; color: #fff; }
+.btn.success:hover { background-color: #16a34a; }
+
+.hidden { display: none !important; }
+
+/* Feedback Messages & Animations */
+.feedback {
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 50px;
+    opacity: 0;
+}
+
+.feedback.show { opacity: 1; }
+.feedback.error { background-color: #ef4444; color: white; }
+.feedback.success { background-color: #22c55e; color: white; }
+
+.shake { animation: shake 0.4s ease-in-out; }
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    75% { transform: translateX(8px); }
+}
+
+.bounce { animation: bounce 0.5s ease-out; }
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Pitch & Players */
+.pitch-wrapper {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: auto; /* Allows scrolling on tiny mobile screens to preserve logical dimensions */
+}
+
+.pitch {
+    /* Fixed Dimensions to ensure solutions remain identical across devices */
+    width: 600px; 
+    height: 400px;
+    min-width: 600px; 
+    background-color: #15803d;
+    border: 4px solid white;
+    border-radius: 5px;
+    position: relative;
+    /* Default flex settings overridden by user */
+    display: block; 
+}
+
+/* Football pitch lines */
+.pitch::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: white;
+    transform: translateX(-50%);
+    z-index: 0;
+}
+
+.pitch::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 80px; height: 80px;
+    border: 2px solid white;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.player {
+    width: 40px;
+    height: 40px;
+    background-color: #ef4444; /* Team Red */
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    z-index: 1;
+    margin: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+}
