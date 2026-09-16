@@ -15,11 +15,11 @@ const levels = [
         id: 3,
         instruction: "Spread the 4 defenders evenly across the pitch and push them to the bottom line.",
         players: 4,
-        expected: { display: "flex", "justify-content": "space-between", "align-items": "flex-end" }
+        expected: { display: "flex", "justify-content": ["space-between", "space-around", "space-evenly"], "align-items": "flex-end" }
     },
     {
         id: 4,
-        instruction: "We have 15 midfielders! Allow them to wrap into multiple rows.",
+        instruction: "Turn the pitch into a flex container! Wait, now the 15 midfielders are squeezed into one row. Allow them to wrap into multiple rows to give them space.",
         players: 15,
         expected: { display: "flex", "flex-wrap": "wrap" }
     },
@@ -33,7 +33,7 @@ const levels = [
         id: 6,
         instruction: "Spread the defense evenly across the pitch horizontally, center them vertically, and reverse their order to trick the opponent.",
         players: 5,
-        expected: { display: "flex", "flex-direction": "row-reverse", "justify-content": "space-evenly", "align-items": "center" }
+        expected: { display: "flex", "flex-direction": "row-reverse", "justify-content": ["space-evenly", "space-around", "space-between"], "align-items": "center" }
     },
     {
         id: 7,
@@ -45,7 +45,7 @@ const levels = [
         id: 8,
         instruction: "The ultimate formation! Align a column of 8 players starting from the bottom right, reversing their order so the captain leads.",
         players: 8,
-        expected: { display: "flex", "flex-direction": "column-reverse", "align-items": "flex-end", "justify-content": "space-around" }
+        expected: { display: "flex", "flex-direction": "column-reverse", "align-items": "flex-end", "justify-content": ["flex-start", "space-around"] }
     }
 ];
 
@@ -84,6 +84,7 @@ function loadProgress() {
 function saveProgress() {
     localStorage.setItem(STORAGE_KEY, highestUnlocked);
     populateLevelSelector();
+    levelSelector.value = currentLevelIndex;
 }
 
 function loadLevel(index) {
@@ -172,9 +173,16 @@ function checkSolution() {
 
     for (const [prop, expectedValue] of Object.entries(level.expected)) {
         const currentDropdownValue = document.getElementById(prop).value;
-        if (currentDropdownValue !== expectedValue) {
-            isCorrect = false;
-            break;
+        if (Array.isArray(expectedValue)) {
+            if (!expectedValue.includes(currentDropdownValue)) {
+                isCorrect = false;
+                break;
+            }
+        } else {
+            if (currentDropdownValue !== expectedValue) {
+                isCorrect = false;
+                break;
+            }
         }
     }
 
