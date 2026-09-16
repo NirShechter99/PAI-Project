@@ -139,15 +139,15 @@ select {
 
 .shake { animation: shake 0.4s ease-in-out; }
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-8px); }
-    75% { transform: translateX(8px); }
+    0%, 100% { transform: scale(var(--pitch-scale)) translateX(0); }
+    25% { transform: scale(var(--pitch-scale)) translateX(-8px); }
+    75% { transform: scale(var(--pitch-scale)) translateX(8px); }
 }
 
 .bounce { animation: bounce 0.5s ease-out; }
 @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+    0%, 100% { transform: scale(var(--pitch-scale)) translateY(0); }
+    50% { transform: scale(var(--pitch-scale)) translateY(-15px); }
 }
 
 .pitch-wrapper {
@@ -159,6 +159,7 @@ select {
 }
 
 .pitch {
+    --pitch-scale: 1;
     width: 600px;
     height: 400px;
     flex-shrink: 0;
@@ -168,12 +169,13 @@ select {
     position: relative;
     display: block;
     overflow: hidden;
+    transform: scale(var(--pitch-scale));
+    transform-origin: top center;
 }
 
 @media (max-width: 650px) {
     .pitch {
-        transform: scale(0.5);
-        transform-origin: top center;
+        --pitch-scale: 0.5;
         margin-bottom: -200px;
     }
 }
