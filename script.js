@@ -19,7 +19,7 @@ const levels = [
     },
     {
         id: 4,
-        instruction: "Turn the pitch into a flex container! Wait, now the 15 midfielders are squeezed into one row. Allow them to wrap into multiple rows to give them space.",
+        instruction: "We have 15 midfielders! Activate the flex display. To prevent them from squeezing into a single tight line, allow them to wrap into multiple rows.",
         players: 15,
         expected: { display: "flex", "flex-wrap": "wrap" }
     },
